@@ -15,8 +15,9 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "mrsystems/tinti/api/product")
+@RequestMapping(path = "mrsystems/tinto/api/product")
 @Controller
+@CrossOrigin(origins = "http://localhost:3000")
 public class ProductController {
     private ProductService productService;
 
