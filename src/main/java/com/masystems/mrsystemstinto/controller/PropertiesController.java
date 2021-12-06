@@ -1,5 +1,6 @@
 package com.masystems.mrsystemstinto.controller;
 
+import com.masystems.mrsystemstinto.enums.PropertyType;
 import com.masystems.mrsystemstinto.model.Properties;
 import com.masystems.mrsystemstinto.service.PropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,15 @@ public class PropertiesController {
         }else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/property/type")
+    public ResponseEntity<List<Properties>> findPropertiesByTypeAndName(@RequestParam PropertyType propertyType,
+                                                                        @RequestParam String name,
+                                                                        @RequestParam String productId){
+        System.out.println("aqui andamos mira propertyType" + propertyType);
+        System.out.println("aqui andamos mira name" + name);
+        return new ResponseEntity<>(propertiesService.findByPropertyTypeAndName(propertyType, name, productId), HttpStatus.OK);
     }
 
 }
