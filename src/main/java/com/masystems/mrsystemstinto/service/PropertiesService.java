@@ -1,5 +1,7 @@
 package com.masystems.mrsystemstinto.service;
 
+import com.masystems.mrsystemstinto.enums.PropertyType;
+import com.masystems.mrsystemstinto.exceptions.ResourceNotFoundException;
 import com.masystems.mrsystemstinto.model.Properties;
 import com.masystems.mrsystemstinto.repository.PropertiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +33,25 @@ public class PropertiesService {
 
     public Optional<Properties> findProperty(String id){
         return propertiesRepository.findById(id);
+    }
+
+    public List<Properties> findByPropertyTypeAndName(PropertyType property, String name, String productId){
+        return propertiesRepository.findPropertyByPropertyTypeIdAndName(property.getValue(), name, productId);
+    }
+
+    public List<Properties> findPropertiesByTypeAndProductId(PropertyType property, String productId){
+        return propertiesRepository.findPropertiesByTypeAndProductId(property.getValue(), productId);
+    }
+
+    public List<Properties> findPropertiesByType(PropertyType propertyType){
+        return propertiesRepository.findProperiesByType(propertyType.getValue());
+    }
+
+    public void deletePropById(String id){
+        propertiesRepository.deleteById(id);
+    }
+
+    public void deletePropertiesById(List <String> ids){
+        propertiesRepository.deleteAllById(ids);
     }
 }

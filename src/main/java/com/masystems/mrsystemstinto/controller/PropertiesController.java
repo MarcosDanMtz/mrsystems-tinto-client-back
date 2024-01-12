@@ -1,5 +1,6 @@
 package com.masystems.mrsystemstinto.controller;
 
+import com.masystems.mrsystemstinto.enums.PropertyType;
 import com.masystems.mrsystemstinto.model.Properties;
 import com.masystems.mrsystemstinto.service.PropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "mrsystems/tinto/api/properties")
 @Controller
+@CrossOrigin(origins = "http://localhost:3000")
 public class PropertiesController {
     private PropertiesService propertiesService;
 
@@ -55,5 +57,39 @@ public class PropertiesController {
         }
     }
 
+    @GetMapping("/property/type")
+    public ResponseEntity<List<Properties>> findPropertiesByTypeAndName(@RequestParam PropertyType propertyType,
+                                                                        @RequestParam(required = false) String name,
+                                                                        @RequestParam String productId){
+        return new ResponseEntity<>(propertiesService.findByPropertyTypeAndName(propertyType, name, productId), HttpStatus.OK);
+    }
+
+    @GetMapping("/type/{propertyType}/product/{productId}")
+    public  ResponseEntity<List<Properties>> findPropertiesByTypeAndProductId(@PathVariable PropertyType propertyType,
+                                                                              @PathVariable String productId){
+        return new ResponseEntity<>(propertiesService.findPropertiesByTypeAndProductId(propertyType, productId), HttpStatus.OK);
+    }
+
+    @GetMapping("/type/{propertyType}")
+    public  ResponseEntity<List<Properties>> findPropertiesByType(@PathVariable PropertyType propertyType){
+        return new ResponseEntity<>(propertiesService.findPropertiesByType(propertyType), HttpStatus.OK);
+    }
+
+    @GetMapping("/{propertyId}")
+    public ResponseEntity<Properties> findPropertiesById(@PathVariable String propertyId){
+        return new ResponseEntity<>(propertiesService.findProperty(propertyId).orElse(null), HttpStatus.OK);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deletePropertyById(@PathVariable("id") String id){
+        propertiesService.deletePropById(id);
+        return ResponseEntity.ok("Property delete correctly " + id);
+    }
+
+    @DeleteMapping("/ids")
+    public ResponseEntity<String> deletePropertiesById(@RequestBody List<String> propIds){
+        propertiesService.deletePropertiesById(propIds);
+        return ResponseEntity.ok("Property delete correctly " + propIds);
+    }
 }
  
