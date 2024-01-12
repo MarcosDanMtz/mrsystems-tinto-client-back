@@ -38,7 +38,8 @@ public class Properties {
                 CascadeType.DETACH,
                 CascadeType.MERGE,
                 CascadeType.REFRESH,
-                CascadeType.PERSIST
+                CascadeType.PERSIST,
+                CascadeType.REMOVE
             },
             mappedBy = "productProperties")
     @JsonBackReference

@@ -25,4 +25,19 @@ public interface PropertiesRepository extends JpaRepository<Properties, String> 
                                                          @Param("name") String name,
                                                          @Param("productId") String productId);
 
+    @Query(value="SELECT * FROM properties p \n" +
+            "INNER JOIN product_properties pp ON pp.properties_id  = p.id \n" +
+            "INNER JOIN product pr ON pr.id = pp.product_id \n" +
+            "WHERE  p.property_type_id = :property \n" +
+            "AND pr.id = :productId", nativeQuery=true)
+    List<Properties> findPropertiesByTypeAndProductId(@Param("property") int property,
+                                                         @Param("productId") String productId);
+
+    @Query(value="SELECT * FROM properties p \n" +
+            "WHERE p.property_type_id = :property", nativeQuery=true)
+    List<Properties> findProperiesByType(@Param("property") int property);
+
+    /*@Query(value="SELECT * FROM properties p \n" +
+            "WHERE p.id = :propertyId;", nativeQuery=true)
+    Properties findPropertyById(@Param("propertyId") String propertyId);*/
 }

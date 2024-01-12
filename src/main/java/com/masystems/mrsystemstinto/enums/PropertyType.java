@@ -1,7 +1,7 @@
 package com.masystems.mrsystemstinto.enums;
 
 public enum PropertyType {
-    TYPE(0), COLOR(1), DEFECT(2);
+    TYPE(0), COLOR(1), DEFECT(2), TEXTURE(3);
 
     private final int value;
 
