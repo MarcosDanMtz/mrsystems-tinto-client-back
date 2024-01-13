@@ -64,4 +64,10 @@ public class ClientController {
     public ResponseEntity<List<Client>> findClientContaining(@RequestParam String email){
         return new ResponseEntity<>(clientService.findClientContaining(email).orElse(null), HttpStatus.OK);
     }
+
+    @DeleteMapping("{email}")
+    public ResponseEntity<String> deleteClientById(@PathVariable("email") String email){
+        clientService.deleteClientByEmail(email);
+        return ResponseEntity.ok("Client delete correctly " + email);
+    }
 }
