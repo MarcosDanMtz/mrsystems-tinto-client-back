@@ -1,5 +1,6 @@
 package com.masystems.mrsystemstinto.controller;
 
+import com.masystems.mrsystemstinto.enums.PropertyType;
 import com.masystems.mrsystemstinto.model.Product;
 import com.masystems.mrsystemstinto.model.Properties;
 import com.masystems.mrsystemstinto.service.ProductService;
@@ -29,6 +30,11 @@ public class ProductController {
     @GetMapping("/all")
     public ResponseEntity<List<Product>> getAllProducts(){
         return new ResponseEntity<>(productService.findAllProducts().orElse(null), HttpStatus.OK);
+    }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<List<Product>> findProductsByName(@PathVariable String name){
+        return new ResponseEntity<>(productService.findProductsByName(name).orElse(null), HttpStatus.OK);
     }
 
     @PostMapping
