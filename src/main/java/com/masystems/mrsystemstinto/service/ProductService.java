@@ -26,6 +26,12 @@ public class ProductService {
         return Optional.of(resultList);
     }
 
+    public Optional<List<Product>> findProductsByName(String name){
+        List<Product> resultList = new ArrayList<>();
+        productRepository.findProductsByName(name).forEach(resultList::add);
+        return Optional.of(resultList);
+    }
+
     public Product newProduct(Product product){
         return productRepository.save(product);
     }
