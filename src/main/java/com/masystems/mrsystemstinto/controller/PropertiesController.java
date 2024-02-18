@@ -58,7 +58,7 @@ public class PropertiesController {
     }
 
     @GetMapping("/property/type")
-    public ResponseEntity<List<Properties>> findPropertiesByTypeAndName(@RequestParam PropertyType propertyType,
+    public ResponseEntity<List<Properties>> findPropertiesByTypeAndNameAndProductId(@RequestParam PropertyType propertyType,
                                                                         @RequestParam(required = false) String name,
                                                                         @RequestParam String productId){
         return new ResponseEntity<>(propertiesService.findByPropertyTypeAndName(propertyType, name, productId), HttpStatus.OK);
@@ -73,6 +73,12 @@ public class PropertiesController {
     @GetMapping("/type/{propertyType}")
     public  ResponseEntity<List<Properties>> findPropertiesByType(@PathVariable PropertyType propertyType){
         return new ResponseEntity<>(propertiesService.findPropertiesByType(propertyType), HttpStatus.OK);
+    }
+
+    @GetMapping("/type/{propertyType}/{name}")
+    public  ResponseEntity<List<Properties>> findPropertiesByTypeAndName(@RequestParam PropertyType propertyType,
+                                                                         @RequestParam String name){
+        return new ResponseEntity<>(propertiesService.findByPropertyByTypeAndName(propertyType, name), HttpStatus.OK);
     }
 
     @GetMapping("/{propertyId}")
