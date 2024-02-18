@@ -37,6 +37,12 @@ public interface PropertiesRepository extends JpaRepository<Properties, String> 
             "WHERE p.property_type_id = :property", nativeQuery=true)
     List<Properties> findProperiesByType(@Param("property") int property);
 
+    @Query(value="SELECT * FROM properties p\n" +
+            "WHERE  p.property_type_id = :property\n" +
+            "AND p.name LIKE %:name%", nativeQuery=true)
+    List<Properties> findProperiesByTypeAndName(@Param("property") int property,
+                                         @Param("name") String name);
+
     /*@Query(value="SELECT * FROM properties p \n" +
             "WHERE p.id = :propertyId;", nativeQuery=true)
     Properties findPropertyById(@Param("propertyId") String propertyId);*/
