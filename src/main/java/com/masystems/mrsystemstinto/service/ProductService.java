@@ -2,11 +2,9 @@ package com.masystems.mrsystemstinto.service;
 
 import com.masystems.mrsystemstinto.model.Product;
 import com.masystems.mrsystemstinto.repository.ProductRepository;
-import com.masystems.mrsystemstinto.repository.PropertiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +32,10 @@ public class ProductService {
 
     public Product newProduct(Product product){
         return productRepository.save(product);
+    }
+
+    public Optional<Product> findProductById(String id){
+        return productRepository.findById(id);
     }
 
     public Optional<Product> findProduct(String id){

@@ -37,6 +37,11 @@ public class ProductController {
         return new ResponseEntity<>(productService.findProductsByName(name).orElse(null), HttpStatus.OK);
     }
 
+    @GetMapping()
+    public ResponseEntity<Product> findProductById(@RequestParam String id){
+        return new ResponseEntity<>(productService.findProductById(id).orElse(null), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Product> newProduct(@RequestBody Product product){
         try {

@@ -36,7 +36,11 @@ public class PropertiesService {
     }
 
     public List<Properties> findByPropertyTypeAndName(PropertyType property, String name, String productId){
-        return propertiesRepository.findPropertyByPropertyTypeIdAndName(property.getValue(), name, productId);
+        if(name != null && !name.trim().isEmpty()){
+            return propertiesRepository.findPropertyByPropertyTypeIdAndName(property.getValue(), name, productId);
+        }else {
+            return propertiesRepository.findPropertyByPropertyTypeId(property.getValue(), productId);
+        }
     }
 
     public List<Properties> findByPropertyByTypeAndName(PropertyType property, String name){

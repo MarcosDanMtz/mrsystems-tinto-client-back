@@ -13,6 +13,14 @@ import java.util.List;
 @Repository
 public interface PropertiesRepository extends JpaRepository<Properties, String> {
 
+    @Query(value="SELECT * FROM properties prty where prty.property_type_id = :property AND\n" +
+            "prty.id NOT IN (\n" +
+            "SELECT p.id FROM product_properties pp\n" +
+            "INNER JOIN product pr ON pr.id = pp.product_id\n" +
+            "INNER JOIN properties p ON p.id = pp.properties_id\n" +
+            "WHERE pr.id = :productId)", nativeQuery=true)
+    List<Properties> findPropertyByPropertyTypeId(@Param("property") int property,
+                                                  @Param("productId") String productId);
 
     @Query(value="SELECT * FROM properties prty where prty.property_type_id = :property AND " +
             "prty.name LIKE %:name% AND " +
