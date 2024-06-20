@@ -41,4 +41,8 @@ public class ProductService {
     public Optional<Product> findProduct(String id){
         return productRepository.findById(id);
     }
+
+    public void deleteProductById(String id){
+        productRepository.deleteById(id);
+    }
 }
